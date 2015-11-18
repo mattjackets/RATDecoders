@@ -52,7 +52,7 @@ def run(data):
         	return config
         else:
                 print '[-] Coded config not found'
-                sys.exit()
+                return None
 	
 		
 #Helper Functions Go Here
