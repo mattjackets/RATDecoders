@@ -15,9 +15,11 @@ from optparse import OptionParser
 from zipfile import ZipFile
 from base64 import b64decode
 
-def run(file_name):
+def runf(file_name):
+    return run(open(file_name,'r').read())
+def run(data):
     raw_config = False
-    with ZipFile(file_name, 'r') as zip:
+    with ZipFile(StringIO(data)) as zip:
         for name in zip.namelist():
             if name == 'com/crimson/bootstrapJar/options':
                 raw_config = zip.read(name)
@@ -68,7 +70,7 @@ if __name__ == "__main__":
         sys.exit()
     #Run the config extraction
     print "[+] Searching for Config"
-    config = run(args[0])
+    config = runf(args[0])
     #If we have a config figure out where to dump it out.
     if not config:
         print "[+] Config not found"
