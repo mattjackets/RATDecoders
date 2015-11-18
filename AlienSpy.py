@@ -161,9 +161,11 @@ def decrypt_RC6(key, encrypted):
     data = data.rstrip(b"\x00")
     return data
 
-def run(file_name):
+def runf(file_name):
+    return run(open(file_name,'r').read())
+def run(data):
     config_dict = False
-    jar = ZipFile(file_name, 'r')
+    jar = ZipFile(StringIO(data))
     # Version A
     if 'a.txt' and 'b.txt' in jar.namelist():
         pre_key = jar.read('a.txt')
@@ -216,7 +218,7 @@ if __name__ == "__main__":
         sys.exit()
     #Run the config extraction
     print "[+] Searching for Config"
-    config = run(args[0])
+    config = runf(args[0])
     #If we have a config figure out where to dump it out.
     if not config:
         print "[+] Config not found"
