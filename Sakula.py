@@ -16,8 +16,9 @@ from struct import unpack
 from optparse import OptionParser
 from Crypto.Cipher import XOR
 
-def run(file_name):
-    file_data = open(file_name, 'rb').read()
+def runf(file_name):
+    return run(open(file_name,'rb').read())
+def run(file_data):
     # RE for 1.0 and 1.1
     re_pattern1 = r'([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})([ -~\x88]{100})(.{12}\x77\x77\x77\x77)'
     # RE for 1.2, 1.3, 1.4
@@ -98,7 +99,7 @@ if __name__ == "__main__":
         sys.exit()
     #Run the config extraction
     print "[+] Searching for Config"
-    config = run(args[0])
+    config = runf(args[0])
     #If we have a config figure out where to dump it out.
     if not config:
         print "[+] Config not found"
